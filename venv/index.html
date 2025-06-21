@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramani Dulipala - AI & ML Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0A0A1A;
+            --secondary-color: #1A1A3D;
+            --accent-color: #00AFFF;
+            --secondary-accent-color: #AA00FF;
+            --text-color: #E0E0E0;
+            --glow-color: rgba(0, 175, 255, 0.6);
+            --secondary-glow-color: rgba(170, 0, 255, 0.6);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            background-image: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .font-heading {
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        .glowing-text {
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .glass-card {
+            background: rgba(26, 26, 61, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px var(--glow-color);
+            border-color: var(--accent-color);
+        }
+        
+        .btn-primary {
+            background-image: linear-gradient(45deg, var(--accent-color) 0%, var(--secondary-accent-color) 100%);
+            color: white;
+            border: none;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 25px var(--glow-color), 0 0 10px var(--secondary-glow-color);
+        }
+        
+        #animated-text {
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+        }
+
+        .fade-out {
+            opacity: 0 !important;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #2a2a4d;
+        }
+        .timeline-item:hover{
+            border-left-color: var(--accent-color);
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -11px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 8px var(--glow-color);
+            transition: transform 0.3s ease;
+        }
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.2);
+        }
+        
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            transform: translateX(-50%) translateY(-50%);
+            background-size: cover;
+        }
+
+        /* Slideshow Styles */
+        .slideshow {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+        .slideshow .slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slideshow .slide.active {
+            opacity: 1;
+        }
+        #slideshow-container {
+            width: 320px;
+            height: 400px;
+        }
+        #certificate-slideshow-container {
+             width: 480px; 
+            height: 340px;
+        }
+        #certificate-slideshow-container .slide {
+            object-fit: contain;
+            padding: 1rem;
+            background-color: rgba(10, 10, 26, 0.7);
+        }
+
+        /* Social Links */
+        .social-link {
+            color: var(--text-color);
+            font-size: 2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-link:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        /* Blog Card Styles */
+        .blog-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        /* Skills Tab Styles */
+        .skill-tab-button {
+            background-color: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        .skill-tab-button.active, .skill-tab-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        .skill-tab-content {
+            display: none;
+            background: rgba(26, 26, 61, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .skill-tab-content.active {
+            display: block;
+        }
+        .skill-tag {
+             background-color: var(--primary-color);
+             border: 1px solid var(--secondary-color);
+             transition: all 0.3s ease;
+             cursor: default;
+        }
+        .skill-tag:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-opacity-50 bg-primary-color/30 backdrop-blur-lg sticky top-0 z-50 border-b border-white/10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-3xl font-bold font-heading glowing-text">RD.ai</div>
+            <div class="hidden md:flex space-x-8 items-center text-lg">
+                <a href="#about" class="hover:text-white transition duration-300">About</a>
+                <a href="#experience" class="hover:text-white transition duration-300">Experience</a>
+                <a href="#projects" class="hover:text-white transition duration-300">Projects</a>
+                <a href="#blog" class="hover:text-white transition duration-300">Blog</a>
+                <a href="#skills" class="hover:text-white transition duration-300">Skills</a>
+                <a href="#contact" class="btn-primary font-bold py-2 px-5 rounded-full text-base">Contact Me</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-secondary-color/90 backdrop-blur-sm">
+             <a href="#about" class="block py-3 px-4 text-sm hover:bg-primary-color">About</a>
+            <a href="#experience" class="block py-3 px-4 text-sm hover:bg-primary-color">Experience</a>
+            <a href="#projects" class="block py-3 px-4 text-sm hover:bg-primary-color">Projects</a>
+            <a href="#blog" class="block py-3 px-4 text-sm hover:bg-primary-color">Blog</a>
+            <a href="#skills" class="block py-3 px-4 text-sm hover:bg-primary-color">Skills</a>
+            <a href="#contact" class="block py-3 px-4 text-sm hover:bg-primary-color">Contact Me</a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+             <video autoplay loop muted playsinline id="hero-video">
+                <source src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Background\Background.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-black/60"></div>
+
+            <div class="relative z-10 container mx-auto px-6 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-center md:text-left mb-12 md:mb-0">
+                    <h1 class="text-5xl md:text-7xl font-black font-heading mb-4 uppercase text-white">Ramani Dulipala</h1>
+                    <p class="text-2xl md:text-3xl mb-6 font-light font-heading text-white">
+                        AI & ML Innovator in <span id="animated-text-container" class="glowing-text font-bold"><span id="animated-text">GenAI</span></span>
+                    </p>
+                    <p class="mb-8 text-gray-300 max-w-lg mx-auto md:mx-0">
+                        Client Success Manager and AI/ML Analyst leveraging data science and generative AI to build impactful, end-to-end solutions.
+                    </p>
+                    <a href="#projects" class="btn-primary font-bold py-3 px-8 rounded-full text-lg">View My Work</a>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div id="slideshow-container" class="slideshow">
+                        <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Pictures\Ramani.png" alt="Professional Portrait 1" class="slide active">
+                        <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Pictures\Ramani1.png" alt="Professional Portrait 2" class="slide">
+                        <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Pictures\Ramani2.png" alt="Professional Portrait 3" class="slide">
+                        <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Pictures\Ramani3.png" alt="Professional Portrait 2" class="slide">
+                        <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Pictures\Ramani4.png" alt="Professional Portrait 3" class="slide">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Education Section -->
+        <section class="py-20 bg-secondary-color/30">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+                <div id="about">
+                    <h2 class="text-4xl font-bold font-heading text-center mb-12 section-title">About Me</h2>
+                    <div class="max-w-3xl mx-auto text-gray-300 text-lg leading-relaxed">
+                        <p>
+                           As a Client Success Manager and AI/ML Analyst, I have a strong foundation in data science, machine learning, and generative AI. I am proficient in delivering comprehensive data-driven solutions—from predictive modeling and exploratory data analysis (EDA) to AI/GenAI solution design and deployment—on platforms like Microsoft Azure. I excel at translating complex business requirements into actionable insights using Python, SQL, scikit-learn, and TensorFlow, while effectively engaging with C-level stakeholders and aligning cross-functional teams to drive innovation.
+                        </p>
+                    </div>
+                </div>
+                <div id="education">
+                    <h2 class="text-4xl font-bold font-heading text-center mb-12 section-title">Education</h2>
+                    <div class="glass-card rounded-lg p-8 flex items-center gap-8">
+                        <img src="data:image/png;base64,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" alt="NIT Delhi Logo" class="w-24 h-24 flex-shrink-0">
+                        <div>
+                            <h3 class="text-2xl font-bold glowing-text font-heading">National Institute of Technology, Delhi</h3>
+                            <p class="text-lg font-semibold text-gray-300">Bachelor's of Technology</p>
+                            <p class="text-md text-gray-400">Electronics and Communication Engineering</p>
+                            <p class="text-sm text-gray-500 mt-1">2020 - 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold font-heading text-center mb-16 section-title">Work Experience</h2>
+                <div class="max-w-3xl mx-auto">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-2xl font-bold glowing-text font-heading">Client Success Manager</h3>
+                        <a href="https://neostats.ai" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 my-2">
+                           <img src="data:image/jpeg;base64,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" alt="Neostats Logo" class="h-8 w-8 rounded-full border-2 border-secondary-color group-hover:border-accent-color transition-colors">
+                           <p class="font-semibold text-gray-400 group-hover:text-accent-color transition-colors">Neostats Analytics Solutions LLC - Dubai, UAE</p>
+                        </a>
+                        <p class="text-sm text-gray-500 mb-4 pl-11">Oct 2024 - Present</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Designed and pitched AI/ML solutions to C-Level executives, aligning GenAI use cases with business needs.</li>
+                            <li>Drafted technical proposals for AI and Generative AI implementations across various sectors.</li>
+                            <li>Led data-driven transformation projects, including AI/ML model deployment on Azure ML.</li>
+                            <li>Delivered impactful GenAI demonstrations (LLMs, Tacotron 2) for real-time applications.</li>
+                            <li>Collaborated with cross-functional teams to deploy scalable AI pipelines.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-2xl font-bold glowing-text font-heading">Business Analyst (Freelance)</h3>
+                        <a href="https://rightchoice.ae" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 my-2">
+                            <img src="https://placehold.co/40x40/0A0A1A/00AFFF?text=RC" alt="Right Choice Logo" class="h-8 w-8 rounded-full border-2 border-secondary-color group-hover:border-accent-color transition-colors">
+                            <p class="font-semibold text-gray-400 group-hover:text-accent-color transition-colors">Right Choice LLC - Dubai, UAE</p>
+                        </a>
+                        <p class="text-sm text-gray-500 mb-4 pl-11">Jan 2024 - Oct 2024</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Developed a machine learning model for thyroid disease prediction with 98.64% accuracy.</li>
+                            <li>Conducted hypothesis testing, regression analysis, and used SMOTE for class balancing.</li>
+                            <li>Built interactive dashboards with Seaborn, Matplotlib, and Power BI.</li>
+                            <li>Ensured compliance with QHSE and InfoSec standards.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-secondary-color/30">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold font-heading text-center mb-16 section-title">Featured Projects</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Project Card 1 -->
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold glowing-text font-heading mb-2">Conversational AI-Driven TTS Synthesis</h3>
+                        <p class="text-gray-400 mb-4">Integrated Tacotron 2 and LLAMA LLM for high-fidelity speech synthesis from SQL database queries.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="bg-primary-color px-2 py-1 rounded">NLP</span><span class="bg-primary-color px-2 py-1 rounded">Deep Learning</span><span class="bg-primary-color px-2 py-1 rounded">Tacotron 2</span><span class="bg-primary-color px-2 py-1 rounded">LLAMA LLM</span>
+                        </div>
+                    </div>
+                    <!-- Project Card 2 -->
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold glowing-text font-heading mb-2">AI-Driven Construction Compliance</h3>
+                        <p class="text-gray-400 mb-4">Designed an Azure-based Generative AI system for construction site safety and regulatory compliance.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="bg-primary-color px-2 py-1 rounded">Azure ML</span><span class="bg-primary-color px-2 py-1 rounded">Cognitive Services</span><span class="bg-primary-color px-2 py-1 rounded">TensorFlow</span><span class="bg-primary-color px-2 py-1 rounded">IoT Hub</span>
+                        </div>
+                    </div>
+                    <!-- Project Card 3 -->
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold glowing-text font-heading mb-2">Sales Insights Data Analysis</h3>
+                        <p class="text-gray-400 mb-4">Developed a sales analytics solution by integrating MySQL with Power BI for real-time visualization.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="bg-primary-color px-2 py-1 rounded">Power BI</span><span class="bg-primary-color px-2 py-1 rounded">SQL</span><span class="bg-primary-color px-2 py-1 rounded">ETL</span><span class="bg-primary-color px-2 py-1 rounded">Predictive Analytics</span>
+                        </div>
+                    </div>
+                     <!-- Project Card 4 -->
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold glowing-text font-heading mb-2">Credit Card Fraud Detection</h3>
+                        <p class="text-gray-400 mb-4">Built an AI-powered fraud detection system using SVM and anomaly detection techniques.</p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="bg-primary-color px-2 py-1 rounded">Machine Learning</span><span class="bg-primary-color px-2 py-1 rounded">SVM</span><span class="bg-primary-color px-2 py-1 rounded">Python</span><span class="bg-primary-color px-2 py-1 rounded">Fraud Detection</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Blog Section -->
+        <section id="blog" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold font-heading text-center mb-4 section-title">From the Blog</h2>
+                <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Exploring the frontiers of AI, machine learning, and data-driven innovation.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Blog Post 1 -->
+                    <div class="glass-card blog-card p-6 rounded-lg">
+                        <div>
+                            <h3 class="text-xl font-bold glowing-text font-heading mb-3">The Future of Generative AI</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Beyond text and images, the next wave of generative models is set to revolutionize industries by creating complex data, from 3D models to synthetic DNA.</p>
+                        </div>
+                        <a href="#" class="font-semibold text-accent-color self-start hover:underline">Read More &rarr;</a>
+                    </div>
+                    <!-- Blog Post 2 -->
+                    <div class="glass-card blog-card p-6 rounded-lg">
+                        <div>
+                            <h3 class="text-xl font-bold glowing-text font-heading mb-3">Demystifying MLOps</h3>
+                            <p class="text-gray-400 mb-4 text-sm">A practical guide to implementing MLOps principles that bridge the gap between building models and deploying them reliably and at scale.</p>
+                        </div>
+                        <a href="#" class="font-semibold text-accent-color self-start hover:underline">Read More &rarr;</a>
+                    </div>
+                    <!-- Blog Post 3 -->
+                    <div class="glass-card blog-card p-6 rounded-lg">
+                        <div>
+                            <h3 class="text-xl font-bold glowing-text font-heading mb-3">The Ethics of AI</h3>
+                            <p class="text-gray-400 mb-4 text-sm">Navigating the complexities of bias, fairness, and transparency is crucial as we integrate more autonomous systems into society.</p>
+                        </div>
+                        <a href="#" class="font-semibold text-accent-color self-start hover:underline">Read More &rarr;</a>
+                    </div>
+                    <!-- Blog Post 4 -->
+                     <div class="glass-card blog-card p-6 rounded-lg">
+                        <div>
+                            <h3 class="text-xl font-bold glowing-text font-heading mb-3">LLMs in Customer Success</h3>
+                            <p class="text-gray-400 mb-4 text-sm">How Large Language Models are transforming customer support, engagement, and success by providing personalized, real-time assistance.</p>
+                        </div>
+                        <a href="#" class="font-semibold text-accent-color self-start hover:underline">Read More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Skills & Certifications Section -->
+        <section id="skills" class="py-20 bg-secondary-color/30">
+            <div class="container mx-auto px-6">
+                 <h2 class="text-4xl font-bold font-heading text-center mb-16 section-title">Skills & Certifications</h2>
+                 <div class="grid md:grid-cols-2 gap-12 items-start">
+                     <div class="w-full">
+                        <h3 class="text-2xl font-bold text-center mb-8 glowing-text font-heading">Technical Skills</h3>
+                        <div class="flex flex-wrap justify-center gap-2 mb-8" id="skill-tabs">
+                            <button data-tab="ai-ml" class="skill-tab-button active font-semibold py-2 px-4 rounded-full">AI & ML</button>
+                            <button data-tab="data-science" class="skill-tab-button font-semibold py-2 px-4 rounded-full">Data Science</button>
+                            <button data-tab="dev-cloud" class="skill-tab-button font-semibold py-2 px-4 rounded-full">Dev & Cloud</button>
+                        </div>
+                        <div id="skill-content" class="p-6 rounded-lg glass-card min-h-[250px]">
+                            <div id="ai-ml-content" class="skill-tab-content active">
+                                 <div class="flex flex-wrap gap-3">
+                                   <span class="skill-tag px-3 py-1 rounded-full text-sm">Generative AI</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">LLMs</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">LLaMA</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Tacotron 2</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Azure OpenAI</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Speech Synthesis</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Machine Learning</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Regression</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Classification</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Clustering</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Deep Learning</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">TensorFlow</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">PyTorch</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Scikit-learn</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">NLP</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">AI in Finance</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Fraud Detection</span>
+                                </div>
+                            </div>
+                            <div id="data-science-content" class="skill-tab-content">
+                                <div class="flex flex-wrap gap-3">
+                                   <span class="skill-tag px-3 py-1 rounded-full text-sm">Python</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">SQL</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">PySpark</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Pandas</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Data Wrangling</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Data Cleaning</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Feature Engineering</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">EDA</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Statistical Analysis</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Hypothesis Testing</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Model Evaluation</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Hyperparameter Tuning</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Model Optimization</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">SMOTE</span>
+                                </div>
+                            </div>
+                            <div id="dev-cloud-content" class="skill-tab-content">
+                                <div class="flex flex-wrap gap-3">
+                                    <span class="skill-tag px-3 py-1 rounded-full text-sm">Microsoft Azure</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Azure ML</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Azure Cognitive Services</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">IoT Hub</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Power BI</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Tableau</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Matplotlib</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Seaborn</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">DAX</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">REST APIs</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Flask</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">ETL</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">SAS</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Excel</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">MongoDB</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">NoSQL</span> <span class="skill-tag px-3 py-1 rounded-full text-sm">Data Warehousing</span>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                     <div>
+                        <h3 class="text-2xl font-bold text-center mb-8 glowing-text font-heading">Certifications</h3>
+                        <div class="flex justify-center items-center">
+                             <div id="certificate-slideshow-container" class="slideshow">
+                                 <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Certificates\Certificate1.png" alt="Fabric Analytics Engineer Certificate" class="slide active">
+                                 <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Certificates\Certificate2.png" alt="Security Operations Analyst Certificate" class="slide">
+                                 <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Certificates\Certificate3.png" alt="Security Operations Analyst Certificate" class="slide">
+                                 <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Certificates\Certificate4.png" alt="Security Operations Analyst Certificate" class="slide">
+                                 <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Certificates\Certificate5.png" alt="Security Operations Analyst Certificate" class="slide">
+                                 <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Certificates\Certificate6.png" alt="Security Operations Analyst Certificate" class="slide">
+                                 <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Certificates\Certificate7.png" alt="Security Operations Analyst Certificate" class="slide">
+                                 <img src="C:\Users\raman\OneDrive\Documents\Projects\RD_Portfolio\venv\Asserts\Certificates\Certificate8.png" alt="Security Operations Analyst Certificate" class="slide">
+                             </div>
+                        </div>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold font-heading mb-4 section-title">Get In Touch</h2>
+                <p class="text-gray-400 mb-8 max-w-xl mx-auto">I'm currently open to new opportunities and collaborations. Feel free to reach out to discuss how my skills can benefit your team.</p>
+                 <div class="flex justify-center items-center space-x-8">
+                    <a href="mailto:ramani1408.ai@gmail.com" class="social-link" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ramani1408/" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.instagram.com/_raman.ai/" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="py-6 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2024 Ramani Dulipala. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animated Text
+            const textElement = document.getElementById('animated-text');
+            const skills = ['GenAI', 'Data Science', 'Azure', 'AI/ML'];
+            let skillIndex = 0;
+
+            setInterval(() => {
+                textElement.classList.add('fade-out');
+                setTimeout(() => {
+                    skillIndex = (skillIndex + 1) % skills.length;
+                    textElement.textContent = skills[skillIndex];
+                    textElement.classList.remove('fade-out');
+                }, 500);
+            }, 3000);
+            
+            // Mobile Menu
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Profile Picture Slideshow
+            const slides = document.querySelectorAll('#slideshow-container .slide');
+            let currentSlide = 0;
+            if (slides.length > 0) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 5000);
+            }
+            
+            // Certificate Slideshow
+            const certSlides = document.querySelectorAll('#certificate-slideshow-container .slide');
+            let currentCertSlide = 0;
+            if (certSlides.length > 0) {
+                setInterval(() => {
+                    certSlides[currentCertSlide].classList.remove('active');
+                    currentCertSlide = (currentCertSlide + 1) % certSlides.length;
+                    certSlides[currentCertSlide].classList.add('active');
+                }, 5500);
+            }
+
+            // Skills Tabs
+            const skillTabs = document.querySelectorAll('.skill-tab-button');
+            const skillContents = document.querySelectorAll('.skill-tab-content');
+
+            skillTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Deactivate all tabs and content
+                    skillTabs.forEach(t => t.classList.remove('active'));
+                    skillContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Activate clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab + '-content').classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
